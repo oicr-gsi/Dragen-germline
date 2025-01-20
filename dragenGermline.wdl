@@ -52,13 +52,13 @@ workflow dragenGermline {
             description: "SNV calls with filter information attached",
             vidarr_label: "filteredVcf"
           },
-          ploidyVcf: {
-            description: "Ploidy vcf file",
-            vidarr_label: "ploidyVcf"
-          },
           targetedVcf: {
             description: "Targeted vcf file",
             vidarr_label: "targetedVcf"
+          },
+          ploidyVcf: {
+            description: "Ploidy vcf file",
+            vidarr_label: "ploidyVcf"
           }
         }
     }
@@ -267,16 +267,16 @@ task runDragenGermline {
     output {
         File outputVcf = "~{resultVcf}"
         File hardfilteredVcf = "~{hardfilteredVcfName}"
+        File targetedVcf = "{targetedVcfName}"
         File? ploidyVcf = "~{ploidyVcfName}"
-        File? targetedVcf = "{targetedVcfName}"
     }
 
     meta {
         output_meta: {
             outputVcf: "output unfiltered vcf with SNV calls",
             hardfilteredVcf: "Hard-filtered vcf file with variants with filter info attached",
-            ploidyVcf: "Ploidy vcf",
-            targetedVcf: "Targeted vcf"
+            targetedVcf: "Targeted vcf",
+            ploidyVcf: "Ploidy vcf"
         }
     }
 
