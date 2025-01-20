@@ -1,0 +1,69 @@
+## Commands
+This section lists command(s) run by dragenGermline workflow
+
+* Running dragenGermline
+
+dragenGermline is a workflow which launches DRAGEN SNV calling pipeline. It creates
+input list based on information passed by the respective olive and then aligns
+all reads using input fastq files, calling SNVs in Germline mode after that. 
+It applies a number of filters and adds annotations from dbSNP database, if available 
+
+### Extracting information from RG line
+
+```
+    python3<<CODE
+    import json
+    import re
+    jsonInput = "~{write_json(fastqInput)}"
+    with open(jsonInput, "r") as ji:
+        inputData = json.load(ji)
+    ji.close()
+
+    try:
+        myPattern = r'\S+?\:\S+'
+        rgs = re.findall(myPattern, inputData['readGroup'])
+        for rgroup in rgs:
+            if rgroup.startswith("ID:"):
+                RGID = rgroup.split(":")[1]
+                Lane = rgroup.split("_")[-2]
+            if rgroup.startswith("SM:"):
+                RGSM = rgroup.split(":")[1]
+            if rgroup.startswith("LB:"):
+                RGLB = rgroup.split(":")[1]
+        fastqR1 = inputData['fastqR1']
+        fastqR2 = inputData['fastqR2']
+        myResult = ",".join([RGID, RGSM, RGLB, Lane, fastqR1, fastqR2])
+        print(myResult)
+    except:
+        print("Error parsing string")
+    CODE 
+```
+### Composing input lists
+
+```
+   python3<<CODE
+   l = "~{sep=' ' inputLines}"
+   inLines = l.split()
+   linesToPrint = ["RGID,RGSM,RGLB,Lane,Read1File,Read2File\n"]
+   for inputString in inLines:
+       inputString.rstrip()
+       if not inputString.startswith("Error"):
+           linesToPrint.append(inputString + "\n")
+
+   with open("~{outputFileName}", "w") as tl:
+       tl.writelines(linesToPrint)
+   tl.close() 
+   CODE
+```
+### Running SNV caller
+
+```
+      dragen -f -r ~{refDir} \
+      --fastq-list ~{sampleFastqList} \
+      --enable-duplicate-marking ~{enableDupMarking} \
+      --enable-variant-caller true \
+      --enable-targeted ~{enableTargeted} \
+      --dbsnp ~{dbSNP} \
+      --output-directory . \
+      --output-file-prefix ~{outputFileNamePrefix} ~{additionalParameters}
+```
