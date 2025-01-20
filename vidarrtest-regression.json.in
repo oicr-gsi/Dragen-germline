@@ -64,6 +64,14 @@
                 ],
                 "type": "ALL"
             },
+            "dragenGermline.targetedVcf": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
             "dragenGermline.ploidyVcf": {
                 "contents": [
                     {
