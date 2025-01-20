@@ -267,7 +267,7 @@ task runDragenGermline {
     output {
         File outputVcf = "~{resultVcf}"
         File hardfilteredVcf = "~{hardfilteredVcfName}"
-        File targetedVcf = "{targetedVcfName}"
+        File? targetedVcf = "~{targetedVcfName}"
         File? ploidyVcf = "~{ploidyVcfName}"
     }
 
