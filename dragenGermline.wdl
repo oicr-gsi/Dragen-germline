@@ -48,17 +48,33 @@ workflow dragenGermline {
             description: "SNV calls before applying any filters",
             vidarr_label: "unfilteredVcf"
           },
+          unfilteredIdx: {
+            description: "Index of SNV calls before applying any filters",
+            vidarr_label: "unfilteredIdx"
+          },
           filteredVcf: {
             description: "SNV calls with filter information attached",
             vidarr_label: "filteredVcf"
+          },
+          filteredIdx: {
+            description: "Index of SNV calls with filter information attached",
+            vidarr_label: "filteredIdx"
           },
           targetedVcf: {
             description: "Targeted vcf file",
             vidarr_label: "targetedVcf"
           },
+          targetedIdx: {
+            description: "Index of Targeted vcf file",
+            vidarr_label: "targetedIdx"
+          },
           ploidyVcf: {
             description: "Ploidy vcf file",
             vidarr_label: "ploidyVcf"
+          },
+          ploidyIdx: {
+            description: "Index of Ploidy vcf file",
+            vidarr_label: "ploidyIdx"
           }
         }
     }
@@ -88,9 +104,13 @@ workflow dragenGermline {
 
     output {
         File unfilteredVcf = runDragenGermline.outputVcf
+        File unfilteredIdx = runDragenGermline.outputIdx
         File filteredVcf = runDragenGermline.hardfilteredVcf
+        File filteredIdx = runDragenGermline.hardfilteredIdx
         File? ploidyVcf = runDragenGermline.ploidyVcf
+        File? ploidyIdx = runDragenGermline.ploidyIdx
         File? targetedVcf = runDragenGermline.targetedVcf
+        File? targetedIdx = runDragenGermline.targetedIdx
     }
 }
 
@@ -266,17 +286,25 @@ task runDragenGermline {
     
     output {
         File outputVcf = "~{resultVcf}"
+        File outputIdx = "~{resultVcf}.tbi"
         File hardfilteredVcf = "~{hardfilteredVcfName}"
+        File hardfilteredIdx = "~{hardfilteredVcfName}.tbi"
         File? targetedVcf = "~{targetedVcfName}"
+        File? targetedIdx = "~{targetedVcfName}.tbi"
         File? ploidyVcf = "~{ploidyVcfName}"
-    }
+        File? ploidyIdx = "~{ploidyVcfName}.tbi"
+   }
 
     meta {
         output_meta: {
             outputVcf: "output unfiltered vcf with SNV calls",
+            outputIdx: "Index of unfiltered vcf with SNV calls",
             hardfilteredVcf: "Hard-filtered vcf file with variants with filter info attached",
+            hardfilteredIdx: "Index of hard-filtered vcf file with variants with filter info attached",
             targetedVcf: "Targeted vcf",
-            ploidyVcf: "Ploidy vcf"
+            targetedIdx: "Index of targeted vcf",
+            ploidyVcf: "Ploidy vcf",
+            ploidyIdx: "Index of ploidy vcf"
         }
     }
 
