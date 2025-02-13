@@ -7,7 +7,7 @@ A workflow for calling SNVs on fastq inputs in germline mode
 ## Dependencies
 
 * [gsi hg38 modules : hg38-dbsnp 151](https://gitlab.oicr.on.ca/ResearchIT/modulator)
-* [gsi modules : dragen-scripts 0.1](https://gitlab.oicr.on.ca/ResearchIT/modulator)
+* [gsi modules : dragen-scripts 0.3](https://gitlab.oicr.on.ca/ResearchIT/modulator)
 
 
 ## Usage
@@ -38,11 +38,11 @@ Parameter|Value|Default|Description
 `extractInfoLine.parsingScript`|String|"$DRAGEN_SCRIPTS_ROOT/bin/composeList.py"|Script for parsing inputs into a line
 `extractInfoLine.timeout`|Int|4|Timeout for the job
 `extractInfoLine.jobMemory`|Int|4|Job allocated RAM
-`extractInfoLine.modules`|String|"dragen-scripts/0.1"|dependency modules
+`extractInfoLine.modules`|String|"dragen-scripts/0.3"|dependency modules
 `composeList.listWritingScript`|String|"$DRAGEN_SCRIPTS_ROOT/bin/writeFile.py"|Script for writing out list of inputs
 `composeList.jobMemory`|Int|4|Job allocated RAM
 `composeList.timeout`|Int|4|Timeout for the job
-`composeList.modules`|String|"dragen-scripts/0.1"|dependency modules
+`composeList.modules`|String|"dragen-scripts/0.3"|dependency modules
 `runDragenGermline.enableDupMarking`|Boolean|true|Flag for duplicate marking, true by  default
 `runDragenGermline.enableTargeted`|Boolean|true|Flag for enabling calling on targets like HBA, GBA etc. clusters
 `runDragenGermline.additionalParameters`|String?|None|Additional dragen parameters
