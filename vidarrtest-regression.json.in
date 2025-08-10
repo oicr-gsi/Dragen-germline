@@ -1,13 +1,13 @@
 [
 {
         "arguments": {
-            "dragenGermline.outputFileNamePrefix": "HG008",
+            "dragenGermline.outputFileNamePrefix": "Test-Sample",
             "dragenGermline.reference": "hg38",
             "dragenGermline.sampleInputs": [
                 {
                     "fastqR1": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dragenGermline/input_data/HG008-T_Illumina_R1_10M.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/dragenGermline/test_inputs/Test_R1.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -19,7 +19,7 @@
                     },
                     "fastqR2": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dragenGermline/input_data/HG008-T_Illumina_R2_10M.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/dragenGermline/test_inputs/Test_R2.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -29,7 +29,7 @@
                         },
                         "type": "EXTERNAL"
                     },
-                    "readGroup": "ID:HG008-T_01_LB01-01_2_ACTGAG-GCGTCA PL:Illumina PU:HG008-T_01_LB01-01 LB:HG008-T_01_LB01-01 SM:HG008-T_01_LB01-01 CM:OICR"
+                    "readGroup": "ID:Test PL:Illumina PU:Test-01 LB:Test-01 SM:Test-01 CM:OICR"
                 }
             ],
             "dragenGermline.composeList.jobMemory": null,
@@ -41,17 +41,17 @@
             "dragenGermline.runDragenGermline.additionalParameters": null,
             "dragenGermline.runDragenGermline.timeout": null
         },
-        "description": "Runs on downsampled HG008 data (DRAGEN testing dataset, Illumina), outputs vcf files in Germline mode.",
+        "description": "Runs on downsampled data (DRAGEN testing dataset, Illumina), outputs vcf files in Germline mode.",
         "engineArguments": {
             "write_to_cache": false,
             "read_from_cache": false
         },
-        "id": "HG008_germline",
+        "id": "Test_germline",
         "metadata": {
             "dragenGermline.unfilteredVcf": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_Test_germline_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -59,7 +59,7 @@
             "dragenGermline.filteredVcf": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_Test_germline_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -67,7 +67,7 @@
             "dragenGermline.targetedVcf": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_Test_germline_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -75,7 +75,7 @@
             "dragenGermline.ploidyVcf": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_Test_germline_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -85,7 +85,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/dragenGermline/1.0.0/output_metrics/HG008_germline.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/dragenGermline/output_metrics/workflow_test_01.metrics",
                 "type": "script"
             }
         ]
