@@ -48,7 +48,71 @@
         },
         "id": "HG008_germline",
         "metadata": {
-            "dragenGermline.unfilteredVcf": {
+              "dragenGermline.mappingMetrics": {
+                  "contents": [
+                      {
+                          "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                      }
+                  ],
+                  "type": "ALL"
+              },
+              "dragenGermline.fastqcMetrics": {
+                  "contents": [
+                      {
+                          "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                      }
+                  ],
+                  "type": "ALL"
+              },
+              "dragenGermline.coverageMetrics": {
+                  "contents": [
+                      {
+                          "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                      }
+                  ],
+                  "type": "ALL"
+              },
+              "dragenGermline.vcVcf": {
+                  "contents": [
+                      {
+                          "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                      }
+                  ],
+                  "type": "ALL"
+              },
+              "dragenGermline.vcMetrics": {
+                  "contents": [
+                      {
+                          "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                      }
+                  ],
+                  "type": "ALL"
+              },
+              "dragenGermline.hardfilteredVcf": {
+                  "contents": [
+                      {
+                          "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                      }
+                  ],
+                  "type": "ALL"
+              },
+              "dragenGermline.targetedVcf": {
+                  "contents": [
+                      {
+                          "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                      }
+                  ],
+                  "type": "ALL"
+              },
+              "dragenGermline.ploidyVcf": {
+                  "contents": [
+                      {
+                          "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                      }
+                  ],
+                  "type": "ALL"
+              },
+            "dragenGermline.cnvVcf": {
                 "contents": [
                     {
                         "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
@@ -56,23 +120,7 @@
                 ],
                 "type": "ALL"
             },
-            "dragenGermline.filteredVcf": {
-                "contents": [
-                    {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
-                    }
-                ],
-                "type": "ALL"
-            },
-            "dragenGermline.targetedVcf": {
-                "contents": [
-                    {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
-                    }
-                ],
-                "type": "ALL"
-            },
-            "dragenGermline.ploidyVcf": {
+            "dragenGermline.cnvMetrics": {
                 "contents": [
                     {
                         "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
