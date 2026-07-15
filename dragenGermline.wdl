@@ -44,21 +44,45 @@ workflow dragenGermline {
           url: "https://gitlab.oicr.on.ca/ResearchIT/modulator"
         }]
         output_meta: {
-          unfilteredVcf: {
-            description: "SNV calls before applying any filters",
-            vidarr_label: "unfilteredVcf"
-          },
-          filteredVcf: {
-            description: "SNV calls with filter information attached",
-            vidarr_label: "filteredVcf"
-          },
+          mappingMetrics: {
+             description: "Mapping metrics",
+             vidarr_label: "mappingMetrics"
+           },
+          fastqcMetrics: {
+             description: "FastQC metrics",
+             vidarr_label: "fastqcMetrics"
+           },
+          coverageMetrics: {
+             description: "Coverage metrics",
+             vidarr_label: "coverageMetrics"
+           },
+          vcVcf: {
+             description: "SNV calls",
+             vidarr_label: "variantCalls"
+           },
+          vcMetrics: {
+             description: "SNV call metrics",
+             vidarr_label: "variantCallMetrics"
+           },
+          hardfilteredVcf: {
+             description: "HardFiltered variant calls",
+             vidarr_label: "hardfilteredCalls"
+           },
           targetedVcf: {
-            description: "Targeted vcf file",
-            vidarr_label: "targetedVcf"
-          },
+             description: "Targeted variant calls",
+             vidarr_label: "targetedCalls"
+           },
           ploidyVcf: {
-            description: "Ploidy vcf file",
-            vidarr_label: "ploidyVcf"
+             description: "Ploidy metrics",
+             vidarr_label: "ploidyMetrics"
+           },
+          cnvVcf: {
+            description: "Copy Number calls",
+            vidarr_label: "cnvCalls"
+          },
+          cnvMetrics: {
+            description: "Copy Number metrics",
+            vidarr_label: "cnvCallMetrics"
           }
         }
     }
