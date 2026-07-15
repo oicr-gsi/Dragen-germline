@@ -88,7 +88,7 @@ workflow dragenGermline {
 
     output {
         File mappingMetrics = runDragenGermline.mappingMetrics
-        File fastqcgMetrics = runDragenGermline.fastqcgMetrics
+        File fastqcMetrics = runDragenGermline.fastqcMetrics
         File coverageMetrics = runDragenGermline.coverageMetrics
         File? vcVcf = runDragenGermline.vcVcf
         File? vcMetrics = runDragenGermline.vcMetrics
@@ -256,18 +256,18 @@ task runDragenGermline {
     
 
     ### common files
-    String mappingMetrics = "~{outputFileNamePrefix}.mapping_metrics.csv"
-    String fastqcMetrics = "~{outputFileNamePrefix}.fastqc_metrics.csv"
-    String coverageMetrics = "~{outputFileNamePrefix}.wgs_coverage_metrics.csv"
+    #String mappingMetrics = "~{outputFileNamePrefix}.mapping_metrics.csv"
+    #String fastqcMetrics = "~{outputFileNamePrefix}.fastqc_metrics.csv"
+    #String coverageMetrics = "~{outputFileNamePrefix}.wgs_coverage_metrics.csv"
     
     ### optional, depending on mode
-    String vcVcf = "~{outputFileNamePrefix}.vcf.gz"
-    String vcMetrics = "~{outputFileNamePrefix}.vc_metrics.csv"
-    String hardfilteredVcf = "~{outputFileNamePrefix}.hard-filtered.vcf.gz"
-    String targetedVcf = "~{outputFileNamePrefix}.targeted.vcf.gz"
-    String cnvVcf = "~{outputFileNamePrefix}.cnv.vcf.gz"
-    String cnvMetrics = "~{outputFileNamePrefix}.cnv_metrics.csv"
-    String ploidyVcf = "~{outputFileNamePrefix}.ploidy.vcf.gz"
+    #String vcVcf = "~{outputFileNamePrefix}.vcf.gz"
+    #String vcMetrics = "~{outputFileNamePrefix}.vc_metrics.csv"
+    #String hardfilteredVcf = "~{outputFileNamePrefix}.hard-filtered.vcf.gz"
+    #String targetedVcf = "~{outputFileNamePrefix}.targeted.vcf.gz"
+    #String cnvVcf = "~{outputFileNamePrefix}.cnv.vcf.gz"
+    #String cnvMetrics = "~{outputFileNamePrefix}.cnv_metrics.csv"
+    #String ploidyVcf = "~{outputFileNamePrefix}.ploidy.vcf.gz"
  
     
 
@@ -290,16 +290,16 @@ task runDragenGermline {
     }
     
     output {
-        File fastqcgMetrics = "~{fastqcMetrics}"
-        File mappingMetrics = "~{mappingMetrics}"
-        File coverageMetrics = "~{coverageMetrics}"
-        File? vcVcf = "~{vcVcf}"
-        File? vcMetrics = "~{vcMetrics}"
-        File? hardfilteredVcf = "~{hardfilteredVcf}"
-        File? targetedVcf = "~{targetedVcf}"
-        File? ploidyVcf = "~{ploidyVcf}"
-        File? cnvVcf = "~{cnvVcf}"
-        File? cnvMetrics = "~{cnvMetrics}"
+        File fastqcMetrics = "~{outputFileNamePrefix}.fastqc_metrics.csv"
+        File mappingMetrics = "~{outputFileNamePrefix}.mapping_metrics.csv"
+        File coverageMetrics = "~{outputFileNamePrefix}.wgs_coverage_metrics.csv"
+        File? vcVcf = "~{outputFileNamePrefix}.vcf.gz"
+        File? vcMetrics = "~{outputFileNamePrefix}.vc_metrics.csv"
+        File? hardfilteredVcf = "~{outputFileNamePrefix}.hard-filtered.vcf.gz"
+        File? targetedVcf = "~{outputFileNamePrefix}.targeted.vcf.gz"
+        File? ploidyVcf = "~{outputFileNamePrefix}.ploidy.vcf.gz"
+        File? cnvVcf = "~{outputFileNamePrefix}.cnv.vcf.gz"
+        File? cnvMetrics = "~{outputFileNamePrefix}.cnv_metrics.csv"
     }
 
     meta {
