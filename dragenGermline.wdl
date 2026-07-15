@@ -259,7 +259,6 @@ task runDragenGermline {
     String mappingMetrics = "~{outputFileNamePrefix}.mapping_metrics.csv"
     String fastqcMetrics = "~{outputFileNamePrefix}.fastqc_metrics.csv"
     String coverageMetrics = "~{outputFileNamePrefix}.wgs_coverage_metrics.csv"
-    String ploidyVcf = "~{outputFileNamePrefix}.ploidy.vcf.gz"
     
     ### optional, depending on mode
     String vcVcf = "~{outputFileNamePrefix}.vcf.gz"
