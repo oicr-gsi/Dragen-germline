@@ -36,12 +36,16 @@
             "dragenGermline.composeList.timeout": null,
             "dragenGermline.extractInfoLine.jobMemory": null,
             "dragenGermline.extractInfoLine.timeout": null,
-            "dragenGermline.runDragenGermline.enableDupMarking": null,
-            "dragenGermline.runDragenGermline.enableTargeted": null,
-            "dragenGermline.runDragenGermline.additionalParameters": null,
-            "dragenGermline.runDragenGermline.timeout": null
+            "dragenGermline.runDragenGermline.enableDupMarking": true,
+            "dragenGermline.runDragenGermline.enableTargeted": true,
+            "dragenGermline.runDragenGermline.enableVariantCaller": true,
+            "dragenGermline.runDragenGermline.enableCnv": false,
+            "dragenGermline.runDragenGermline.enableCnvSelfNormalization": false,
+            "dragenGermline.runDragenGermline.additionalParameters": false,
+            "dragenGermline.runDragenGermline.timeout": null,
+            "dragenGermline.runDragenGermline.jobMemory": null
         },
-        "description": "Runs on downsampled HG008 data (DRAGEN testing dataset, Illumina), outputs vcf files in Germline mode.",
+        "description": "Runs on downsampled HG008 data (DRAGEN testing dataset, Illumina), varian calling, outputs vcf files in Germline mode.",
         "engineArguments": {
             "write_to_cache": false,
             "read_from_cache": false
