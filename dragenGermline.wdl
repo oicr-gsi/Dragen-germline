@@ -87,10 +87,16 @@ workflow dragenGermline {
     } 
 
     output {
-        File unfilteredVcf = runDragenGermline.outputVcf
-        File filteredVcf = runDragenGermline.hardfilteredVcf
-        File? ploidyVcf = runDragenGermline.ploidyVcf
+        File mappingMetrics = runDragenGermline.mappingMetrics
+        File fastqcgMetrics = runDragenGermline.fastqcgMetrics
+        File coverageMetrics = runDragenGermline.coverageMetrics
+        File? vcVcf = runDragenGermline.vcVcf
+        File? vcMetrics = runDragenGermline.vcMetrics
+        File? hardfilteredVcf =runDragenGermline.hardfilteredVcf
         File? targetedVcf = runDragenGermline.targetedVcf
+        File? ploidyVcf = runDragenGermline.ploidyVcf
+        File? cnvVcf = runDragenGermline.cnvVcf 
+        File? cnvMetrics = runDragenGermline.cnvMetrics
     }
 }
 
@@ -226,11 +232,15 @@ task runDragenGermline {
         File sampleFastqList
         Boolean enableDupMarking = true
         Boolean enableTargeted = true
+        Boolean enableVariantCaller = true
+        Boolean enableCnv = false
+        Boolean enableCnvSelfNormalization = false
         String refDir
         String? additionalParameters
         String outputFileNamePrefix
         String dbSNP
         Int timeout = 96
+        Int jobMemory = 96
     }
 
     parameter_meta {
@@ -244,17 +254,50 @@ task runDragenGermline {
         timeout: "Hours before task timeout"
     }
     
-    String resultVcf = "~{outputFileNamePrefix}.vcf.gz"
-    String hardfilteredVcfName = "~{outputFileNamePrefix}.hard-filtered.vcf.gz"
-    String ploidyVcfName = "~{outputFileNamePrefix}.ploidy.vcf.gz"
-    String targetedVcfName = "~{outputFileNamePrefix}.targeted.vcf.gz"
+
+    ### common files
+    String mappingMetrics = "~{outputFileNamePrefix}.mapping_metrics.csv"
+    String fastqcMetrics = "~{outputFileNamePrefix}.fastqc_metrics.csv"
+    String coverageMetrics = "~{outputFileNamePrefix}.wgs_coverage_metrics.csv"
+    String ploidyVcf = "~{outputFileNamePrefix}.ploidy.vcf.gz"
+    
+     #"~{outputFileNamePrefix}-replay.json
+     #"~{outputFileNamePrefix}.time_metrics.csv
+     #"~{outputFileNamePrefix}.trimmer_metrics.csv
+     #"~{outputFileNamePrefix}.wgs_contig_mean_cov.csv
+     #"~{outputFileNamePrefix}.wgs_fine_hist.csv
+     #"~{outputFileNamePrefix}.wgs_hist.csv
+     #"~{outputFileNamePrefix}.wgs_overall_mean_cov.csv
+           
+    #"~{outputFileNamePrefix}.fragment_length_hist.csv
+    #"~{outputFileNamePrefix}.insert-stats.tab
+    #"~{outputFileNamePrefix}.ploidy_estimation_metrics.cav
+    #"~{outputFileNamePrefix}.ploidy.vcf.gz.tbi
+     
+    
+    ### optional, depending on mode
+    String vcVcf = "~{outputFileNamePrefix}.vcf.gz"
+    String vcMetrics = "~{outputFileNamePrefix}.vc_metrics.csv"
+    String hardfilteredVcf = "~{outputFileNamePrefix}.hard-filtered.vcf.gz"
+    String ploidyVcf = "~{outputFileNamePrefix}.ploidy.vcf.gz"
+    String targetedVcf = "~{outputFileNamePrefix}.targeted.vcf.gz"
+    String cnvVcf = "~{outputFileNamePrefix}.cnv.vcf.gz"
+    String cnvMetrics = "~{outputFileNamePrefix}.cnv_metrics.csv"
+    
+    #~{outputFileNamePrefix}.bam
+    #~{outputFileNamePrefix}.bam.bai
+    #~{outputFileNamePrefix}.cram
+    #~{outputFileNamePrefix}.crai
+    
 
     command <<<
       dragen -f -r ~{refDir} \
       --fastq-list ~{sampleFastqList} \
       --enable-duplicate-marking ~{enableDupMarking} \
-      --enable-variant-caller true \
+      --enable-variant-caller ~{enableVariantCaller} \
       --enable-targeted ~{enableTargeted} \
+      --enable-cnv ~{enableCnv} \
+      --cnv-enable-self-normalization ~{enableCnvSelfNormalization} \
       --dbsnp ~{dbSNP} \
       --output-directory . \
       --output-file-prefix ~{outputFileNamePrefix} ~{additionalParameters}
@@ -262,21 +305,34 @@ task runDragenGermline {
     runtime {
         backend: "DRAGEN" 
         timeout: "~{timeout}"
+        memory: "~{jobMemory} GB"
     }
     
     output {
-        File outputVcf = "~{resultVcf}"
-        File hardfilteredVcf = "~{hardfilteredVcfName}"
-        File? targetedVcf = "~{targetedVcfName}"
-        File? ploidyVcf = "~{ploidyVcfName}"
+        File fastqcgMetrics = "~{fastqcMetrics}"
+        File mappingMetrics = "~{mappingMetrics}"
+        File coverageMetrics = "~{coverageMetrics}"
+        File? vcVcf = "~{vcVcf}"
+        File? vcMetrics = "~{vcMetrics}"
+        File? hardfilteredVcf = "~{hardfilteredVcf}"
+        File? targetedVcf = "~{targetedVcf}"
+        File? ploidyVcf = "~{ploidyVcf}"
+        File? cnvVcf = "~{cnvVcf}"
+        File? cnvMetrics = "~{cnvMetrics}"
     }
 
     meta {
         output_meta: {
-            outputVcf: "output unfiltered vcf with SNV calls",
-            hardfilteredVcf: "Hard-filtered vcf file with variants with filter info attached",
-            targetedVcf: "Targeted vcf",
-            ploidyVcf: "Ploidy vcf"
+            fastqcMetrics: "fastqc metrics, required",
+            mappingMetrics: "mapping metrics, required",
+            coverageMetrics: "coverage metrics, required",
+            ploidyVcf: "Ploidy vcf",
+            vcVcf: "unfiltered vcf from variant calling, requires enableVariantCaller=true",
+            vcMetrics: "metrics from variant calling, requires enableVariantCaller=true",
+            hardfilteredVcf: "hard-filtered vcf file with variants with filter info attached, requires enableVariantCaller=true",
+            targetedVcf: "vcf file from targeted, requires enableTargeted=true",
+            cnvVcf: "vcf file with copy number variation, requires enableCnv=true",
+            cnvMetrics: "metrics from copy number variation, requires enableCnv=true"
         }
     }
 
