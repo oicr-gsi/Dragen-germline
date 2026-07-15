@@ -261,33 +261,15 @@ task runDragenGermline {
     String coverageMetrics = "~{outputFileNamePrefix}.wgs_coverage_metrics.csv"
     String ploidyVcf = "~{outputFileNamePrefix}.ploidy.vcf.gz"
     
-     #"~{outputFileNamePrefix}-replay.json
-     #"~{outputFileNamePrefix}.time_metrics.csv
-     #"~{outputFileNamePrefix}.trimmer_metrics.csv
-     #"~{outputFileNamePrefix}.wgs_contig_mean_cov.csv
-     #"~{outputFileNamePrefix}.wgs_fine_hist.csv
-     #"~{outputFileNamePrefix}.wgs_hist.csv
-     #"~{outputFileNamePrefix}.wgs_overall_mean_cov.csv
-           
-    #"~{outputFileNamePrefix}.fragment_length_hist.csv
-    #"~{outputFileNamePrefix}.insert-stats.tab
-    #"~{outputFileNamePrefix}.ploidy_estimation_metrics.cav
-    #"~{outputFileNamePrefix}.ploidy.vcf.gz.tbi
-     
-    
     ### optional, depending on mode
     String vcVcf = "~{outputFileNamePrefix}.vcf.gz"
     String vcMetrics = "~{outputFileNamePrefix}.vc_metrics.csv"
     String hardfilteredVcf = "~{outputFileNamePrefix}.hard-filtered.vcf.gz"
-    String ploidyVcf = "~{outputFileNamePrefix}.ploidy.vcf.gz"
     String targetedVcf = "~{outputFileNamePrefix}.targeted.vcf.gz"
     String cnvVcf = "~{outputFileNamePrefix}.cnv.vcf.gz"
     String cnvMetrics = "~{outputFileNamePrefix}.cnv_metrics.csv"
-    
-    #~{outputFileNamePrefix}.bam
-    #~{outputFileNamePrefix}.bam.bai
-    #~{outputFileNamePrefix}.cram
-    #~{outputFileNamePrefix}.crai
+    String ploidyVcf = "~{outputFileNamePrefix}.ploidy.vcf.gz"
+ 
     
 
     command <<<
