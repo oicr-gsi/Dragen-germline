@@ -27,7 +27,7 @@ workflow dragenGermline {
     Map[String,GenomeResources] dragen_resources_by_genome = { 
     "hg38": {
       "dbSNP": "/.mounts/labs/gsiprojects/gsi/Dragen/reference/dbSNP.151/common_all_dbSNP151_hg38p7_sorted.vcf.gz",
-      "referenceDirectory": "/.mounts/labs/gsiprojects/gsi/Dragen/reference/hg38fa.p12/"
+      "referenceDirectory": "/.mounts/labs/gsiprojects/gsi/Dragen/reference/hg38fa.p12_v4.5"
       }
     }
 
