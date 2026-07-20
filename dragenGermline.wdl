@@ -35,9 +35,9 @@ workflow dragenGermline {
     String dragen_dbsnp = dragen_resources_by_genome [ reference ].dbSNP
 
     meta {
-        author: "Peter Ruzanov"
-        email: "pruzanov@oicr.on.ca"
-        description: "A workflow for calling SNVs on fastq inputs in germline mode"
+        author: "Peter Ruzanov, Lawrence Heisler"
+        email: "pruzanov@oicr.on.ca, lheisler@oicr.on.ca"
+        description: "A workflow for calling SNVs and CNVs on fastq inputs in germline mode"
         dependencies: [
         {
           name: "gsi hg38 modules : hg38-dbsnp/138",
@@ -279,23 +279,10 @@ task runDragenGermline {
     }
     
 
-    ### common files
-    #String mappingMetrics = "~{outputFileNamePrefix}.mapping_metrics.csv"
-    #String fastqcMetrics = "~{outputFileNamePrefix}.fastqc_metrics.csv"
-    #String coverageMetrics = "~{outputFileNamePrefix}.wgs_coverage_metrics.csv"
-    
-    ### optional, depending on mode
-    #String vcVcf = "~{outputFileNamePrefix}.vcf.gz"
-    #String vcMetrics = "~{outputFileNamePrefix}.vc_metrics.csv"
-    #String hardfilteredVcf = "~{outputFileNamePrefix}.hard-filtered.vcf.gz"
-    #String targetedVcf = "~{outputFileNamePrefix}.targeted.vcf.gz"
-    #String cnvVcf = "~{outputFileNamePrefix}.cnv.vcf.gz"
-    #String cnvMetrics = "~{outputFileNamePrefix}.cnv_metrics.csv"
-    #String ploidyVcf = "~{outputFileNamePrefix}.ploidy.vcf.gz"
- 
-    
-
     command <<<
+      ### add dragen 4.5.4 to the path
+      export PATH=$PATH:/opt/dragen/4.5.4/bin/
+
       dragen -f -r ~{refDir} \
       --fastq-list ~{sampleFastqList} \
       --enable-duplicate-marking ~{enableDupMarking} \
