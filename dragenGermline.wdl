@@ -291,6 +291,7 @@ task runDragenGermline {
       --enable-cnv ~{enableCnv} \
       --cnv-enable-self-normalization ~{enableCnvSelfNormalization} \
       --dbsnp ~{dbSNP} \
+      --validate-pangenome-reference=false \
       --output-directory . \
       --output-file-prefix ~{outputFileNamePrefix} ~{additionalParameters}
     >>>
