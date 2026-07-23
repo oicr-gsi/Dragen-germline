@@ -141,5 +141,148 @@
                 "type": "script"
             }
         ]
-    }
+    },
+{
+        "arguments": {
+            "dragenGermline.outputFileNamePrefix": "HG008",
+            "dragenGermline.reference": "hg38",
+            "dragenGermline.sampleInputs": [
+                {
+                    "fastqR1": {
+                        "contents": {
+                            "configuration": "/.mounts/labs/gsi/testdata/dragenGermline/input_data/HG008-T_Illumina_R1_10M.fastq.gz",
+                            "externalIds": [
+                                {
+                                    "id": "TEST",
+                                    "provider": "TEST"
+                                }
+                            ]
+                        },
+                        "type": "EXTERNAL"
+                    },
+                    "fastqR2": {
+                        "contents": {
+                            "configuration": "/.mounts/labs/gsi/testdata/dragenGermline/input_data/HG008-T_Illumina_R2_10M.fastq.gz",
+                            "externalIds": [
+                                {
+                                    "id": "TEST",
+                                    "provider": "TEST"
+                                }
+                            ]
+                        },
+                        "type": "EXTERNAL"
+                    },
+                    "readGroup": "ID:HG008-T_01_LB01-01_2_ACTGAG-GCGTCA PL:Illumina PU:HG008-T_01_LB01-01 LB:HG008-T_01_LB01-01 SM:HG008-T_01_LB01-01 CM:OICR"
+                }
+            ],
+            "dragenGermline.composeList.jobMemory": null,
+            "dragenGermline.composeList.timeout": null,
+            "dragenGermline.extractInfoLine.jobMemory": null,
+            "dragenGermline.extractInfoLine.timeout": null,
+            "dragenGermline.runDragenGermline.enableDupMarking": true,
+            "dragenGermline.runDragenGermline.enableTargeted": false,
+            "dragenGermline.runDragenGermline.enableVariantCaller": false,
+            "dragenGermline.runDragenGermline.enableCnv": true,
+            "dragenGermline.runDragenGermline.enableCnvSelfNormalization": true,
+            "dragenGermline.runDragenGermline.additionalParameters": null,
+            "dragenGermline.runDragenGermline.timeout": null,
+            "dragenGermline.runDragenGermline.jobMemory": null
+        },
+        "description": "Runs on downsampled HG008 data (DRAGEN testing dataset, Illumina), cnv calling, for generation of uniformity of coverage metric.",
+        "engineArguments": {
+            "write_to_cache": false,
+            "read_from_cache": false
+        },
+        "id": "HG008_cnv_uoc",
+        "metadata": {
+              "dragenGermline.mappingMetrics": {
+                  "contents": [
+                      {
+                          "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                      }
+                  ],
+                  "type": "ALL"
+              },
+              "dragenGermline.fastqcMetrics": {
+                  "contents": [
+                      {
+                          "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                      }
+                  ],
+                  "type": "ALL"
+              },
+              "dragenGermline.coverageMetrics": {
+                  "contents": [
+                      {
+                          "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                      }
+                  ],
+                  "type": "ALL"
+              },
+              "dragenGermline.vcVcf": {
+                  "contents": [
+                      {
+                          "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                      }
+                  ],
+                  "type": "ALL"
+              },
+              "dragenGermline.vcMetrics": {
+                  "contents": [
+                      {
+                          "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                      }
+                  ],
+                  "type": "ALL"
+              },
+              "dragenGermline.hardfilteredVcf": {
+                  "contents": [
+                      {
+                          "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                      }
+                  ],
+                  "type": "ALL"
+              },
+              "dragenGermline.targetedVcf": {
+                  "contents": [
+                      {
+                          "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                      }
+                  ],
+                  "type": "ALL"
+              },
+              "dragenGermline.ploidyVcf": {
+                  "contents": [
+                      {
+                          "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                      }
+                  ],
+                  "type": "ALL"
+              },
+            "dragenGermline.cnvVcf": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "dragenGermline.cnvMetrics": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_dragenGermline_HG008_germline_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            }
+        },
+        "validators": [
+            {
+                "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
+                "metrics_compare": "@CHECKOUT@/tests/compare.sh",
+                "output_metrics": "/.mounts/labs/gsi/testdata/dragenGermline/1.0.0/output_metrics/HG008_germline.metrics",
+                "type": "script"
+            }
+        ]
+    }	
 ]
