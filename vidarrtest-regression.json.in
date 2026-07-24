@@ -280,7 +280,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/dragenGermline/1.0.0/output_metrics/HG008_germline.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/dragenGermline/1.0.0/output_metrics/HG008_cnv.metrics",
                 "type": "script"
             }
         ]
