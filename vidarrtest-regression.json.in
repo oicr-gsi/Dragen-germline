@@ -19,7 +19,7 @@
                     },
                     "fastqR2": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dragenGermline/input_data/HG008-N-D_CGGACAAC-AATCCGGA_H3LLJDSXC_L002_001.R1_10M.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/dragenGermline/input_data/HG008-N-D_CGGACAAC-AATCCGGA_H3LLJDSXC_L002_001.R2_10M.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -162,7 +162,7 @@
                     },
                     "fastqR2": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dragenGermline/input_data/HG008-N-D_CGGACAAC-AATCCGGA_H3LLJDSXC_L002_001.R1.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/dragenGermline/input_data/HG008-N-D_CGGACAAC-AATCCGGA_H3LLJDSXC_L002_001.R2.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
