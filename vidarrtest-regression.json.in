@@ -29,7 +29,7 @@
                         },
                         "type": "EXTERNAL"
                     },
-                    "readGroup": "ID:HCGGACAAC-AATCCGGA_H3LLJDSXC_L002 PL:Illumina PU:HCGGACAAC-AATCCGGA_H3LLJDSXC_L002 SM:HG008-N-D, CN:GIAB"
+                    "readGroup": "ID:HCGGACAAC-AATCCGGA_H3LLJDSXC_L002 PL:Illumina PU:HCGGACAAC-AATCCGGA_H3LLJDSXC_L002 SM:HG008-N-D CN:GIAB"
                 }
             ],
             "dragenGermline.composeList.jobMemory": null,
@@ -172,7 +172,7 @@
                         },
                         "type": "EXTERNAL"
                     },
-                    "readGroup": "ID:HCGGACAAC-AATCCGGA_H3LLJDSXC_L002 PL:Illumina PU:HCGGACAAC-AATCCGGA_H3LLJDSXC_L002 SM:HG008-N-D, CN:GIAB"
+                    "readGroup": "ID:HCGGACAAC-AATCCGGA_H3LLJDSXC_L002 PL:Illumina PU:HCGGACAAC-AATCCGGA_H3LLJDSXC_L002 SM:HG008-N-D CN:GIAB"
                 }
             ],
             "dragenGermline.composeList.jobMemory": null,
