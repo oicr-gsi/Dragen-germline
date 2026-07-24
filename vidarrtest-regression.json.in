@@ -39,8 +39,9 @@
             "dragenGermline.runDragenGermline.enableDupMarking": true,
             "dragenGermline.runDragenGermline.enableTargeted": true,
             "dragenGermline.runDragenGermline.enableVariantCaller": true,
-            "dragenGermline.runDragenGermline.enableCnv": false,
-            "dragenGermline.runDragenGermline.enableCnvSelfNormalization": false,
+            "dragenGermline.runDragenGermline.enableCnv": true,
+            "dragenGermline.runDragenGermline.enableSv": true,
+            "dragenGermline.runDragenGermline.enableCnvSelfNormalization": true,
             "dragenGermline.runDragenGermline.additionalParameters": null,
             "dragenGermline.runDragenGermline.timeout": null,
             "dragenGermline.runDragenGermline.jobMemory": null

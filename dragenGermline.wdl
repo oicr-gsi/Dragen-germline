@@ -121,6 +121,7 @@ workflow dragenGermline {
         File? ploidyVcf = runDragenGermline.ploidyVcf
         File? cnvVcf = runDragenGermline.cnvVcf 
         File? cnvMetrics = runDragenGermline.cnvMetrics
+        File? svVcf = runDragenGermline.svVcf
     }
 }
 
@@ -259,6 +260,7 @@ task runDragenGermline {
         Boolean enableVariantCaller = true
         Boolean enableCnv = false
         Boolean enableCnvSelfNormalization = false
+        Boolean enableSv = false
         String refDir
         String? additionalParameters
         String outputFileNamePrefix
@@ -271,7 +273,11 @@ task runDragenGermline {
         sampleFastqList: "List of tumor fastq files, required input"
         enableDupMarking: "Flag for duplicate marking, true by  default"
         enableTargeted: "Flag for enabling calling on targets like HBA, GBA etc. clusters"
-        refDir: "The reference genome directoty"
+        enableVariantCaller: "Flag for enabling variant calling",
+        enableCnv: "Flag for enabling CNV calling",
+        enableCnvSelfNormalization : "Flag to enable selfnormalization, required for uniformity of coverage metric",
+        enableSv : "Flag to enable SV calling",
+        refDir: "The reference genome directory"
         additionalParameters: "Additional dragen parameters"
         dbSNP: "Path to the dbSNP reference file"
         outputFileNamePrefix: "Output file name prefix"
@@ -312,6 +318,8 @@ task runDragenGermline {
         File? ploidyVcf = "~{outputFileNamePrefix}.ploidy.vcf.gz"
         File? cnvVcf = "~{outputFileNamePrefix}.cnv.vcf.gz"
         File? cnvMetrics = "~{outputFileNamePrefix}.cnv_metrics.csv"
+        File? svVcf = "~{outputFileNamePrefix}.sv.vcf.gz"
+        File? svMetrics = "~{outputFileNamePrefix}.sv_metrics.csv"
     }
 
     meta {
@@ -325,7 +333,9 @@ task runDragenGermline {
             hardfilteredVcf: "hard-filtered vcf file with variants with filter info attached, requires enableVariantCaller=true",
             targetedVcf: "vcf file from targeted, requires enableTargeted=true",
             cnvVcf: "vcf file with copy number variation, requires enableCnv=true",
-            cnvMetrics: "metrics from copy number variation, requires enableCnv=true"
+            cnvMetrics: "metrics from copy number variation, requires enableCnv=true",
+            svVcf: "vcf file with structural variants, requires enableSv=true",
+            svMetrics: "metrics from structual variation, requires enableSv=true"
         }
     }
 
