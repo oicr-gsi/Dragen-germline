@@ -7,7 +7,7 @@
                 {
                     "fastqR1": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dragenGermline/input_data/HG008-T_Illumina_R1_10M.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/dragenGermline/input_data/HG008-N-D_CGGACAAC-AATCCGGA_H3LLJDSXC_L002_001.R1_10M.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -19,7 +19,7 @@
                     },
                     "fastqR2": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dragenGermline/input_data/HG008-T_Illumina_R2_10M.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/dragenGermline/input_data/HG008-N-D_CGGACAAC-AATCCGGA_H3LLJDSXC_L002_001.R1_10M.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -29,7 +29,7 @@
                         },
                         "type": "EXTERNAL"
                     },
-                    "readGroup": "ID:HG008-T_01_LB01-01_2_ACTGAG-GCGTCA PL:Illumina PU:HG008-T_01_LB01-01 LB:HG008-T_01_LB01-01 SM:HG008-T_01_LB01-01 CM:OICR"
+                    "readGroup": "ID:HCGGACAAC-AATCCGGA_H3LLJDSXC_L002 PL:Illumina PU:HCGGACAAC-AATCCGGA_H3LLJDSXC_L002 SM:HG008-N-D, CN:GIAB"
                 }
             ],
             "dragenGermline.composeList.jobMemory": null,
@@ -137,7 +137,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/dragenGermline/1.0.0/output_metrics/HG008_germline.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/dragenGermline/1.0.0/output_metrics/HG008_germline_sv_cnv.metrics",
                 "type": "script"
             }
         ]
@@ -150,7 +150,7 @@
                 {
                     "fastqR1": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dragenGermline/input_data/HG008-T_Illumina_R1_10M.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/dragenGermline/input_data/HG008-N-D_CGGACAAC-AATCCGGA_H3LLJDSXC_L002_001.R1.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -162,7 +162,7 @@
                     },
                     "fastqR2": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/dragenGermline/input_data/HG008-T_Illumina_R2_10M.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/dragenGermline/input_data/HG008-N-D_CGGACAAC-AATCCGGA_H3LLJDSXC_L002_001.R1.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -172,7 +172,7 @@
                         },
                         "type": "EXTERNAL"
                     },
-                    "readGroup": "ID:HG008-T_01_LB01-01_2_ACTGAG-GCGTCA PL:Illumina PU:HG008-T_01_LB01-01 LB:HG008-T_01_LB01-01 SM:HG008-T_01_LB01-01 CM:OICR"
+                    "readGroup": "ID:HCGGACAAC-AATCCGGA_H3LLJDSXC_L002 PL:Illumina PU:HCGGACAAC-AATCCGGA_H3LLJDSXC_L002 SM:HG008-N-D, CN:GIAB"
                 }
             ],
             "dragenGermline.composeList.jobMemory": null,
