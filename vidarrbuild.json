@@ -1,6 +1,7 @@
 {
     "names": [
-        "dragenGermline"
+        "dragenGermline",
+        "dragenCoverageUniformity"
     ],
     "wdl": "dragenGermline.wdl"
 }
