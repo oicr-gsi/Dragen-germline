@@ -307,6 +307,7 @@ task runDragenGermline {
       --enable-targeted ~{enableTargeted} \
       --enable-cnv ~{enableCnv} \
       --cnv-enable-self-normalization ~{enableCnvSelfNormalization} \
+      --enable-sv ~{enableSv} \
       --dbsnp ~{dbSNP} \
       --validate-pangenome-reference=false \
       --output-directory . \
