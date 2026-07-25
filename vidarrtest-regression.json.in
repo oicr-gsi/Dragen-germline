@@ -185,6 +185,7 @@
             "dragenGermline.runDragenGermline.enableVariantCaller": false,
             "dragenGermline.runDragenGermline.enableCnv": true,
             "dragenGermline.runDragenGermline.enableCnvSelfNormalization": true,
+            "dragenGermline.runDragenGermline.enableSv": false,
             "dragenGermline.runDragenGermline.additionalParameters": null,
             "dragenGermline.runDragenGermline.timeout": null,
             "dragenGermline.runDragenGermline.jobMemory": null

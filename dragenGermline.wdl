@@ -83,7 +83,18 @@ workflow dragenGermline {
           cnvMetrics: {
             description: "Copy Number metrics",
             vidarr_label: "cnvCallMetrics"
+          },
+          svVcf: {
+            description: "Structural Variant calls",
+            vidarr_label: "svCalls"
+          },
+          svMetrics: {
+            description: "Structural Variant metrics",
+            vidarr_label: "svCallMetrics"
           }
+
+
+
         }
     }
 
@@ -273,10 +284,10 @@ task runDragenGermline {
         sampleFastqList: "List of tumor fastq files, required input"
         enableDupMarking: "Flag for duplicate marking, true by  default"
         enableTargeted: "Flag for enabling calling on targets like HBA, GBA etc. clusters"
-        enableVariantCaller: "Flag for enabling variant calling",
-        enableCnv: "Flag for enabling CNV calling",
-        enableCnvSelfNormalization : "Flag to enable selfnormalization, required for uniformity of coverage metric",
-        enableSv : "Flag to enable SV calling",
+        enableVariantCaller: "Flag for enabling variant calling"
+        enableCnv: "Flag for enabling CNV calling"
+        enableCnvSelfNormalization : "Flag to enable selfnormalization, required for uniformity of coverage metric"
+        enableSv : "Flag to enable SV calling"
         refDir: "The reference genome directory"
         additionalParameters: "Additional dragen parameters"
         dbSNP: "Path to the dbSNP reference file"
