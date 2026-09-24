@@ -14,12 +14,14 @@ struct GenomeResources {
 workflow dragenGermline {
     input {
         Array[InputGroup] sampleInputs
+        String dragenBinPath = "/opt/dragen/4.5.4/bin/"
         String outputFileNamePrefix
         String reference
     }
 
     parameter_meta {
         sampleInputs: "Input structure with tumor fastq files and read group strings"
+        dragenBinPath: "Path to bin directory on DRAGEN node, version-specific"
         outputFileNamePrefix: "Prefix for output files"
         reference: "The genome reference build. For example: hg19, hg38, mm10"
     }
@@ -92,9 +94,6 @@ workflow dragenGermline {
             description: "Structural Variant metrics",
             vidarr_label: "svCallMetrics"
           }
-
-
-
         }
     }
 
@@ -117,6 +116,7 @@ workflow dragenGermline {
       input:
         sampleFastqList = composeList.inputList,
         refDir = dragen_ref,
+        dragenBinPath = dragenBinPath,
         dbSNP = dragen_dbsnp,
         outputFileNamePrefix = outputFileNamePrefix
     } 
@@ -267,17 +267,17 @@ task runDragenGermline {
     input {
         File sampleFastqList
         Boolean enableDupMarking = true
-        Boolean enableTargeted = true
+        Boolean enableTargeted = false
         Boolean enableVariantCaller = true
         Boolean enableCnv = false
         Boolean enableCnvSelfNormalization = false
         Boolean enableSv = false
         String refDir
+        String dragenBinPath
         String? additionalParameters
         String outputFileNamePrefix
         String dbSNP
         Int timeout = 96
-        Int jobMemory = 96
     }
 
     parameter_meta {
@@ -290,6 +290,7 @@ task runDragenGermline {
         enableSv : "Flag to enable SV calling"
         refDir: "The reference genome directory"
         additionalParameters: "Additional dragen parameters"
+        dragenBinPath: "Path to version-specific bin directory for dragen"
         dbSNP: "Path to the dbSNP reference file"
         outputFileNamePrefix: "Output file name prefix"
         timeout: "Hours before task timeout"
@@ -297,9 +298,7 @@ task runDragenGermline {
     
 
     command <<<
-      ### add dragen 4.5.4 to the path
-      export PATH=$PATH:/opt/dragen/4.5.4/bin/
-
+      export PATH=$PATH:~{dragenBinPath}
       dragen -f -r ~{refDir} \
       --fastq-list ~{sampleFastqList} \
       --enable-duplicate-marking ~{enableDupMarking} \
@@ -316,7 +315,6 @@ task runDragenGermline {
     runtime {
         backend: "DRAGEN" 
         timeout: "~{timeout}"
-        memory: "~{jobMemory} GB"
     }
     
     output {
