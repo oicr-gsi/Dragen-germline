@@ -14,20 +14,22 @@ struct GenomeResources {
 workflow dragenGermline {
     input {
         Array[InputGroup] sampleInputs
+        String dragenBinPath = "/opt/dragen/4.5.4/bin/"
         String outputFileNamePrefix
         String reference
     }
 
     parameter_meta {
         sampleInputs: "Input structure with tumor fastq files and read group strings"
+        dragenBinPath: "Path to bin directory on DRAGEN node, version-specific"
         outputFileNamePrefix: "Prefix for output files"
-        reference: "The genome reference build. For example: hg19, hg38, mm10"
+        reference: "The genome reference build. Currently, only hg38 is supported"
     }
 
     Map[String,GenomeResources] dragen_resources_by_genome = { 
     "hg38": {
       "dbSNP": "/.mounts/labs/gsiprojects/gsi/Dragen/reference/dbSNP.151/common_all_dbSNP151_hg38p7_sorted.vcf.gz",
-      "referenceDirectory": "/.mounts/labs/gsiprojects/gsi/Dragen/reference/hg38fa.p12/"
+      "referenceDirectory": "/.mounts/labs/gsiprojects/gsi/Dragen/reference/hg38fa.p12_v4.5"
       }
     }
 
@@ -35,30 +37,62 @@ workflow dragenGermline {
     String dragen_dbsnp = dragen_resources_by_genome [ reference ].dbSNP
 
     meta {
-        author: "Peter Ruzanov"
-        email: "pruzanov@oicr.on.ca"
-        description: "A workflow for calling SNVs on fastq inputs in germline mode"
+        author: "Peter Ruzanov, Lawrence Heisler"
+        email: "pruzanov@oicr.on.ca, lheisler@oicr.on.ca"
+        description: "A workflow for calling SNVs and CNVs on fastq inputs in germline mode"
         dependencies: [
         {
           name: "gsi hg38 modules : hg38-dbsnp/138",
           url: "https://gitlab.oicr.on.ca/ResearchIT/modulator"
         }]
         output_meta: {
-          unfilteredVcf: {
-            description: "SNV calls before applying any filters",
-            vidarr_label: "unfilteredVcf"
-          },
-          filteredVcf: {
-            description: "SNV calls with filter information attached",
-            vidarr_label: "filteredVcf"
-          },
+          mappingMetrics: {
+             description: "Mapping metrics",
+             vidarr_label: "mappingMetrics"
+           },
+          fastqcMetrics: {
+             description: "FastQC metrics",
+             vidarr_label: "fastqcMetrics"
+           },
+          coverageMetrics: {
+             description: "Coverage metrics",
+             vidarr_label: "coverageMetrics"
+           },
+          vcVcf: {
+             description: "SNV calls",
+             vidarr_label: "variantCalls"
+           },
+          vcMetrics: {
+             description: "SNV call metrics",
+             vidarr_label: "variantCallMetrics"
+           },
+          hardfilteredVcf: {
+             description: "HardFiltered variant calls",
+             vidarr_label: "hardfilteredCalls"
+           },
           targetedVcf: {
-            description: "Targeted vcf file",
-            vidarr_label: "targetedVcf"
-          },
+             description: "Targeted variant calls",
+             vidarr_label: "targetedCalls"
+           },
           ploidyVcf: {
-            description: "Ploidy vcf file",
-            vidarr_label: "ploidyVcf"
+             description: "Ploidy metrics",
+             vidarr_label: "ploidyMetrics"
+           },
+          cnvVcf: {
+            description: "Copy Number calls",
+            vidarr_label: "cnvCalls"
+          },
+          cnvMetrics: {
+            description: "Copy Number metrics",
+            vidarr_label: "cnvCallMetrics"
+          },
+          svVcf: {
+            description: "Structural Variant calls",
+            vidarr_label: "svCalls"
+          },
+          svMetrics: {
+            description: "Structural Variant metrics",
+            vidarr_label: "svCallMetrics"
           }
         }
     }
@@ -82,15 +116,24 @@ workflow dragenGermline {
       input:
         sampleFastqList = composeList.inputList,
         refDir = dragen_ref,
+        dragenBinPath = dragenBinPath,
         dbSNP = dragen_dbsnp,
         outputFileNamePrefix = outputFileNamePrefix
     } 
 
     output {
-        File unfilteredVcf = runDragenGermline.outputVcf
-        File filteredVcf = runDragenGermline.hardfilteredVcf
-        File? ploidyVcf = runDragenGermline.ploidyVcf
+        File mappingMetrics = runDragenGermline.mappingMetrics
+        File fastqcMetrics = runDragenGermline.fastqcMetrics
+        File? coverageMetrics = runDragenGermline.coverageMetrics
+        File? vcVcf = runDragenGermline.vcVcf
+        File? vcMetrics = runDragenGermline.vcMetrics
+        File? hardfilteredVcf =runDragenGermline.hardfilteredVcf
         File? targetedVcf = runDragenGermline.targetedVcf
+        File? ploidyVcf = runDragenGermline.ploidyVcf
+        File? cnvVcf = runDragenGermline.cnvVcf 
+        File? cnvMetrics = runDragenGermline.cnvMetrics
+        File? svVcf = runDragenGermline.svVcf
+        File? svMetrics = runDragenGermline.svMetrics
     }
 }
 
@@ -179,7 +222,7 @@ task composeList {
    inLines = l.split()
    linesToPrint = ["RGID,RGSM,RGLB,Lane,Read1File,Read2File\n"]
    for inputString in inLines:
-       inputString.rstrip()
+       inputString = inputString.rstrip()
        if not inputString.startswith("Error"):
            linesToPrint.append(inputString + "\n")
 
@@ -225,8 +268,13 @@ task runDragenGermline {
     input {
         File sampleFastqList
         Boolean enableDupMarking = true
-        Boolean enableTargeted = true
+        Boolean enableTargeted = false
+        Boolean enableVariantCaller = true
+        Boolean enableCnv = false
+        Boolean enableCnvSelfNormalization = false
+        Boolean enableSv = false
         String refDir
+        String dragenBinPath
         String? additionalParameters
         String outputFileNamePrefix
         String dbSNP
@@ -237,25 +285,31 @@ task runDragenGermline {
         sampleFastqList: "List of tumor fastq files, required input"
         enableDupMarking: "Flag for duplicate marking, true by  default"
         enableTargeted: "Flag for enabling calling on targets like HBA, GBA etc. clusters"
-        refDir: "The reference genome directoty"
+        enableVariantCaller: "Flag for enabling variant calling"
+        enableCnv: "Flag for enabling CNV calling"
+        enableCnvSelfNormalization : "Flag to enable selfnormalization, required for uniformity of coverage metric"
+        enableSv : "Flag to enable SV calling"
+        refDir: "The reference genome directory"
         additionalParameters: "Additional dragen parameters"
+        dragenBinPath: "Path to version-specific bin directory for dragen"
         dbSNP: "Path to the dbSNP reference file"
         outputFileNamePrefix: "Output file name prefix"
         timeout: "Hours before task timeout"
     }
     
-    String resultVcf = "~{outputFileNamePrefix}.vcf.gz"
-    String hardfilteredVcfName = "~{outputFileNamePrefix}.hard-filtered.vcf.gz"
-    String ploidyVcfName = "~{outputFileNamePrefix}.ploidy.vcf.gz"
-    String targetedVcfName = "~{outputFileNamePrefix}.targeted.vcf.gz"
 
     command <<<
+      export PATH=$PATH:~{dragenBinPath}
       dragen -f -r ~{refDir} \
       --fastq-list ~{sampleFastqList} \
       --enable-duplicate-marking ~{enableDupMarking} \
-      --enable-variant-caller true \
+      --enable-variant-caller ~{enableVariantCaller} \
       --enable-targeted ~{enableTargeted} \
+      --enable-cnv ~{enableCnv} \
+      --cnv-enable-self-normalization ~{enableCnvSelfNormalization} \
+      --enable-sv ~{enableSv} \
       --dbsnp ~{dbSNP} \
+      --validate-pangenome-reference=false \
       --output-directory . \
       --output-file-prefix ~{outputFileNamePrefix} ~{additionalParameters}
     >>>
@@ -265,18 +319,34 @@ task runDragenGermline {
     }
     
     output {
-        File outputVcf = "~{resultVcf}"
-        File hardfilteredVcf = "~{hardfilteredVcfName}"
-        File? targetedVcf = "~{targetedVcfName}"
-        File? ploidyVcf = "~{ploidyVcfName}"
+        File fastqcMetrics = "~{outputFileNamePrefix}.fastqc_metrics.csv"
+        File mappingMetrics = "~{outputFileNamePrefix}.mapping_metrics.csv"
+        File? coverageMetrics = "~{outputFileNamePrefix}.wgs_coverage_metrics.csv"
+        File? vcVcf = "~{outputFileNamePrefix}.vcf.gz"
+        File? vcMetrics = "~{outputFileNamePrefix}.vc_metrics.csv"
+        File? hardfilteredVcf = "~{outputFileNamePrefix}.hard-filtered.vcf.gz"
+        File? targetedVcf = "~{outputFileNamePrefix}.targeted.vcf.gz"
+        File? ploidyVcf = "~{outputFileNamePrefix}.ploidy.vcf.gz"
+        File? cnvVcf = "~{outputFileNamePrefix}.cnv.vcf.gz"
+        File? cnvMetrics = "~{outputFileNamePrefix}.cnv_metrics.csv"
+        File? svVcf = "~{outputFileNamePrefix}.sv.vcf.gz"
+        File? svMetrics = "~{outputFileNamePrefix}.sv_metrics.csv"
     }
 
     meta {
         output_meta: {
-            outputVcf: "output unfiltered vcf with SNV calls",
-            hardfilteredVcf: "Hard-filtered vcf file with variants with filter info attached",
-            targetedVcf: "Targeted vcf",
-            ploidyVcf: "Ploidy vcf"
+            fastqcMetrics: "fastqc metrics, required",
+            mappingMetrics: "mapping metrics, required",
+            coverageMetrics: "coverage metrics, required",
+            ploidyVcf: "Ploidy vcf",
+            vcVcf: "unfiltered vcf from variant calling, requires enableVariantCaller=true",
+            vcMetrics: "metrics from variant calling, requires enableVariantCaller=true",
+            hardfilteredVcf: "hard-filtered vcf file with variants with filter info attached, requires enableVariantCaller=true",
+            targetedVcf: "vcf file from targeted, requires enableTargeted=true",
+            cnvVcf: "vcf file with copy number variation, requires enableCnv=true",
+            cnvMetrics: "metrics from copy number variation, requires enableCnv=true",
+            svVcf: "vcf file with structural variants, requires enableSv=true",
+            svMetrics: "metrics from structual variation, requires enableSv=true"
         }
     }
 
