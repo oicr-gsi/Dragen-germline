@@ -3,6 +3,7 @@
         "arguments": {
             "dragenGermline.outputFileNamePrefix": "HG008",
             "dragenGermline.reference": "hg38",
+            "dragenGermline.dragenBinPath": null,
             "dragenGermline.sampleInputs": [
                 {
                     "fastqR1": {
@@ -163,6 +164,7 @@
         "arguments": {
             "dragenGermline.outputFileNamePrefix": "HG008",
             "dragenGermline.reference": "hg38",
+            "dragenGermline.dragenBinPath": null,
             "dragenGermline.sampleInputs": [
                 {
                     "fastqR1": {
