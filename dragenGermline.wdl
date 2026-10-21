@@ -124,7 +124,7 @@ workflow dragenGermline {
     output {
         File mappingMetrics = runDragenGermline.mappingMetrics
         File fastqcMetrics = runDragenGermline.fastqcMetrics
-        File coverageMetrics = runDragenGermline.coverageMetrics
+        File? coverageMetrics = runDragenGermline.coverageMetrics
         File? vcVcf = runDragenGermline.vcVcf
         File? vcMetrics = runDragenGermline.vcMetrics
         File? hardfilteredVcf =runDragenGermline.hardfilteredVcf
@@ -320,7 +320,7 @@ task runDragenGermline {
     output {
         File fastqcMetrics = "~{outputFileNamePrefix}.fastqc_metrics.csv"
         File mappingMetrics = "~{outputFileNamePrefix}.mapping_metrics.csv"
-        File coverageMetrics = "~{outputFileNamePrefix}.wgs_coverage_metrics.csv"
+        File? coverageMetrics = "~{outputFileNamePrefix}.wgs_coverage_metrics.csv"
         File? vcVcf = "~{outputFileNamePrefix}.vcf.gz"
         File? vcMetrics = "~{outputFileNamePrefix}.vc_metrics.csv"
         File? hardfilteredVcf = "~{outputFileNamePrefix}.hard-filtered.vcf.gz"
