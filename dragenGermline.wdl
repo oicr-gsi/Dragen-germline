@@ -221,7 +221,7 @@ task composeList {
    inLines = l.split()
    linesToPrint = ["RGID,RGSM,RGLB,Lane,Read1File,Read2File\n"]
    for inputString in inLines:
-       inputString.rstrip()
+       inputString = inputString.rstrip()
        if not inputString.startswith("Error"):
            linesToPrint.append(inputString + "\n")
 
