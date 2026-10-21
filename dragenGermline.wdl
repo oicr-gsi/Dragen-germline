@@ -23,7 +23,7 @@ workflow dragenGermline {
         sampleInputs: "Input structure with tumor fastq files and read group strings"
         dragenBinPath: "Path to bin directory on DRAGEN node, version-specific"
         outputFileNamePrefix: "Prefix for output files"
-        reference: "The genome reference build. Current;ly only hg38 is supported"
+        reference: "The genome reference build. Currently, only hg38 is supported"
     }
 
     Map[String,GenomeResources] dragen_resources_by_genome = { 
