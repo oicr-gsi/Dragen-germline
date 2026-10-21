@@ -133,6 +133,7 @@ workflow dragenGermline {
         File? cnvVcf = runDragenGermline.cnvVcf 
         File? cnvMetrics = runDragenGermline.cnvMetrics
         File? svVcf = runDragenGermline.svVcf
+        File? svMetrics = runDragenGermline.svMetrics
     }
 }
 
